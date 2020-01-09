@@ -1,0 +1,106 @@
+
+<!Doctype html>
+<html lang="en" xmlns:th="http://w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body>
+
+	<div th:replace="common/header :: navbar"></div>
+
+	<div class="container">
+		<!-- start of container -->
+
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-xs-8">
+				<h2 class="section-headline">
+					
+						<span th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Delicacies'"></span>
+					
+				</h2>
+			</div>
+			<div class="col-xs-4">
+				<img src="/image/bakery_logo.jpg" class="img-responsive"
+					style="margin-top: 10px" />
+
+			</div>
+		</div>
+		<hr
+			style="position: absolute; width: 70%; height: 2px; background-color: #333; z-index: -1; margin-top: -175px" />
+		<img class="img-responsive" src="/image/wood.png"
+			style="margin-top: -75px" />
+
+		<div class="row" style="margin-top: 60px">
+			<div class="col-xs-9 col-xs-offset-3">
+			    
+			    <div th:if="${emptyList}">
+			    <h5 style="font-style:italic;">Oops, no result is found. Try something else or try again later.</h5>
+			    
+			    </div>
+				
+				<table border="0" id="delicacyList">
+				<thead><tr><th></th></tr></thead>
+				<tbody>
+				<tr class="delicacy-item" data-th-each="delicacy : ${delicacyList}">
+				     <td>
+				     <div th:if="${delicacy!=null}">
+				     <div class="row">
+				     <div class="col-xs-3">
+		 <img class="img-responsive menu-delicacy" th:src="@{/image/delicacy/} + ${delicacy.id} + '.jpg' " /> 
+				     </div>
+				     <div class="col-xs-9">
+				      <a th:href="@{/delicacyDetail?id=}+${delicacy.id}"> <h4 th:text="${delicacy.name}"></h4></a><br/>
+				     <span th:text="${delicacy.expiryDate}"></span><br/>
+				     <span th:text="${delicacy.chef}"></span><br/>
+				     <a th:href="@{/delicacyDetail?id=}+${delicacy.id}"><span th:text="${#strings.capitalize(delicacy.ingredients)}"></span></a>
+				     <span th:text="${delicacy.kcal_100g}"><span>calories/100g</span></span><br/>
+				      <span style="font-size:x-large; color: #db3208;">$<span th:text="${#numbers.formatDecimal(delicacy.ourPrice,0,'COMMA',2,'POINT')}"></span>
+				      </span>
+				      <span style="text-decoration:line-through;">$<span th:text="${#numbers.formatDecimal(delicacy.listPrice,0,'COMMA',2,'POINT')}"></span>
+				      </span>
+				      <p> <span th:utext="${#strings.abbreviate(delicacy.description,500)}"></span></p>
+				      
+				      
+				      </div>
+				      
+				      
+				     </div>
+				     
+				 
+				     </div>
+				     
+				     
+				     
+				     </td>
+				
+				
+				
+				
+				
+				
+				</tr>
+				
+				
+				
+				
+				
+				
+				</tbody>
+				
+				
+				
+				
+				
+				</table>
+				
+			</div>
+		</div>
+	</div>
+	<!-- End of Container -->
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+
+</body>
+
+
+</html>
